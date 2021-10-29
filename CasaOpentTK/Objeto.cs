@@ -1,4 +1,6 @@
-﻿using OpenTK;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using OpenTK;
 
 using System;
 using System.Collections;
@@ -10,17 +12,19 @@ using System.Threading.Tasks;
 namespace CasaOpentTK
 {
 
-    class Objeto
+    [Serializable]
+    class Objeto: IObjeto
     {
-        private Vector3 Centro;
-        private Hashtable Caras;
+        public Vector3Ser Centro { get; set; }
+        public Hashtable Caras { get; set; }
+
 
         public Objeto(){
-            Centro = new Vector3(0, 0, 0);
+            Centro = new Vector3Ser(0, 0, 0);
             Caras = new Hashtable();
         }
 
-        public Objeto(Vector3 centro)
+        public Objeto(Vector3Ser centro)
         {
             Centro = centro;
             Caras = new Hashtable();
@@ -28,12 +32,12 @@ namespace CasaOpentTK
 
         public Objeto(Hashtable caras)
         {
-            Centro = new Vector3(0, 0, 0);
+            Centro = new Vector3Ser(0, 0, 0);
             Caras = caras;
 
         }
 
-        public Objeto(Vector3 centro, Hashtable caras)
+        public Objeto(Vector3Ser centro, Hashtable caras)
         {
             Centro = centro;
             Caras = caras;
@@ -42,13 +46,43 @@ namespace CasaOpentTK
 
 
         public void Dibujar() {
-            foreach (DictionaryEntry parte in Caras) {
-                Cara p = (Cara)parte.Value;
-                p.Dibujar();
+            Cara c;
+            foreach (DictionaryEntry cara in Caras) {
+                
+                if (cara.Value.GetType().ToString() == "Newtonsoft.Json.Linq.JObject")
+                {
+                    var json = cara.Value.ToString();
+                     c = JsonConvert.DeserializeObject<Cara>(json);
+                }
+                else {
+                    c = (Cara)cara.Value;
+                }
+                c.Dibujar();
             }
         }
 
-        public Vector3 GetCentro() { return this.Centro; }
-        public void SetCentro(Vector3 centro) { this.Centro = centro; }
+        public void AgregarCara(String key, Cara cara) {
+            Caras.Add(key, cara);
+        }
+
+        public void SetCentro(Vector3Ser centro) { this.Centro = centro; }
+
+        public Vector3Ser GetCentro() { return this.Centro; }
+
+
+        public void Escalar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Rotar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Trasladar()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
