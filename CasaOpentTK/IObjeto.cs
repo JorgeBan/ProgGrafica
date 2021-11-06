@@ -9,8 +9,8 @@ namespace CasaOpentTK
     interface IObjeto
     {
         void Dibujar();
-        void Rotar();
-        void Trasladar();
-        void Escalar();
+        void Rotar(float angulo, Vector3Ser rotacion);
+        void Trasladar(Vector3Ser trasladar);
+        void Escalar(float escala);
     }
 }

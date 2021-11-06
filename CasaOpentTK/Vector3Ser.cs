@@ -13,10 +13,10 @@ namespace CasaOpentTK
         public float Y { get; set; }
         public float Z { get; set; }
 
-        public Vector3Ser(float valueX, float valueY, float  valueZ) {
-            this.X = valueX;
-            this.Y = valueY;
-            this.Z = valueZ;
+        public Vector3Ser(float X, float Y, float Z) {
+            this.X = X;
+            this.Y = Y;
+            this.Z = Z;
         }
 
     }

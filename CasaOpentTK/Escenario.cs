@@ -1,52 +1,49 @@
 ﻿using Newtonsoft.Json;
-using OpenTK;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CasaOpentTK
 {
     class Escenario: IObjeto
     {
 
-        private Hashtable Objetos;
+
+        private Dictionary<String, Objeto> Objetos;
         private Vector3Ser Centro;
 
         public Escenario()
         {
-            Centro = new Vector3Ser(0, 0, 0);
-            Objetos = new Hashtable();
+            this.Centro = new Vector3Ser(0, 0, 0);
+            this.Objetos = new Dictionary<String, Objeto>();
         }
 
-        public Escenario(Hashtable objetos)
+        public Escenario(Dictionary<String, Objeto> Objetos)
         {
-            Centro = new Vector3Ser(0,0,0);
-            Objetos = objetos;
+            this.Centro = new Vector3Ser(0,0,0);
+            this.Objetos = Objetos;
         }
 
-        public Escenario(Vector3Ser centro, Hashtable objetos)
+        public Escenario(Vector3Ser Centro, Dictionary<String, Objeto> Objetos)
         {
-            Centro = centro;
-            Objetos = objetos;
+            this.Centro = Centro;
+            this.Objetos = Objetos;
         }
 
 
         public Escenario(String archivoObjetos)
         {
             Centro = new Vector3Ser(0, 0, 0);
-            Objetos = new Hashtable();
+            Objetos = new Dictionary<String, Objeto>();
             AgregarObjetoConArchivo(archivoObjetos);
         }
 
         public void Dibujar(){
-            foreach (DictionaryEntry objeto in Objetos)
+            Objeto obj;
+            foreach (var objeto in Objetos)
             {
-                Objeto c = (Objeto)objeto.Value;
-                c.Dibujar();
+                obj = (Objeto)objeto.Value;
+                obj.Dibujar();
             }
         }
 
@@ -68,19 +65,33 @@ namespace CasaOpentTK
 
 
 
-        public void Escalar()
+        public void Escalar(float escala)
         {
-            throw new NotImplementedException();
+            Objeto obj;
+            foreach (var Objeto in Objetos)
+            {
+                obj = (Objeto)Objeto.Value;
+                obj.Escalar(escala);
+            }
         }
 
-        public void Rotar()
+        public void Rotar(float angulo, Vector3Ser rotacion)
         {
-            throw new NotImplementedException();
+            Objeto obj;
+            foreach (var Objeto in Objetos) {
+                obj = (Objeto)Objeto.Value;
+                obj.Rotar(angulo,rotacion);
+            }
         }
 
-        public void Trasladar()
+        public void Trasladar(Vector3Ser trasladar)
         {
-            throw new NotImplementedException();
+            Objeto obj;
+            foreach (var Objeto in Objetos)
+            {
+                obj = (Objeto)Objeto.Value;
+                obj.Trasladar(trasladar);
+            }
         }
     }
 }

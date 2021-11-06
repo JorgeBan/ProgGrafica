@@ -18,7 +18,8 @@ namespace CasaOpentTK
     {
 
         private Escenario escenario;
-
+        private Dictionary<String, Vector3Ser> Vertices;
+        private Dictionary<String, Cara> Caras;
         public Game()
             : base(900, 600, GraphicsMode.Default, "Escenario")
         {
@@ -28,18 +29,18 @@ namespace CasaOpentTK
         {
             OnResize(null);
 
-
+            
             escenario = new Escenario();
-            escenario.AgregarObjetoConArchivo("Cubo1.txt");
-            escenario.AgregarObjetoConArchivo("Triangulo1.txt");
+            escenario.AgregarObjetoConArchivo("Cubo.txt");
+            escenario.AgregarObjetoConArchivo("Triangulo.txt");
 
-
+            
 
 
             GL.ClearColor(Color4.LightBlue);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(-600, 600, -600, 600, -600, 600);
+            GL.Ortho(-400, 400, -400, 400, -400, 400);
 
         }
 
@@ -52,10 +53,14 @@ namespace CasaOpentTK
             GL.LoadIdentity();
 
 
-            rotar += 0.35f;
-            GL.Rotate(rotar, 1, 0, 1);
+            rotar += 1.5f;
+            escenario.Rotar(rotar, new Vector3Ser(1, 0, 0));
+            //escenario.Trasladar(new Vector3Ser(rotar,rotar,rotar));
+            //escenario.Escalar(rotar);
+            //GL.Scale(rotar,rotar,rotar);
             escenario.Dibujar();
-            
+
+ 
             SwapBuffers();
             base.OnRenderFrame(e);
         }
@@ -63,7 +68,12 @@ namespace CasaOpentTK
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
+
             base.OnUpdateFrame(e);
         }
+
+
+
+        
     }
 }

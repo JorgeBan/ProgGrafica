@@ -1,13 +1,5 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using OpenTK;
-
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CasaOpentTK
 {
@@ -15,48 +7,41 @@ namespace CasaOpentTK
     [Serializable]
     class Objeto: IObjeto
     {
+
         public Vector3Ser Centro { get; set; }
-        public Hashtable Caras { get; set; }
+        public Dictionary<String,Cara> Caras { get; set; }
 
 
         public Objeto(){
-            Centro = new Vector3Ser(0, 0, 0);
-            Caras = new Hashtable();
+            this.Centro = new Vector3Ser(0, 0, 0);
+            this.Caras = new Dictionary<String, Cara>();
         }
 
-        public Objeto(Vector3Ser centro)
+        public Objeto(Vector3Ser Centro)
         {
-            Centro = centro;
-            Caras = new Hashtable();
+            this.Centro = Centro;
+            this.Caras = new Dictionary<String, Cara>();
         }
 
-        public Objeto(Hashtable caras)
+        public Objeto(Dictionary<String, Cara> Caras)
         {
-            Centro = new Vector3Ser(0, 0, 0);
-            Caras = caras;
+            this.Centro = new Vector3Ser(0, 0, 0);
+            this.Caras = Caras;
 
         }
 
-        public Objeto(Vector3Ser centro, Hashtable caras)
+        public Objeto(Vector3Ser Centro, Dictionary<String, Cara> Caras)
         {
-            Centro = centro;
-            Caras = caras;
+            this.Centro = Centro;
+            this.Caras = Caras;
 
         }
 
 
         public void Dibujar() {
             Cara c;
-            foreach (DictionaryEntry cara in Caras) {
-                
-                if (cara.Value.GetType().ToString() == "Newtonsoft.Json.Linq.JObject")
-                {
-                    var json = cara.Value.ToString();
-                     c = JsonConvert.DeserializeObject<Cara>(json);
-                }
-                else {
-                    c = (Cara)cara.Value;
-                }
+            foreach(var cara in Caras) {
+                c = (Cara)cara.Value;
                 c.Dibujar();
             }
         }
@@ -70,19 +55,33 @@ namespace CasaOpentTK
         public Vector3Ser GetCentro() { return this.Centro; }
 
 
-        public void Escalar()
+        public void Escalar(float escala)
         {
-            throw new NotImplementedException();
+            Cara c;
+            foreach (var Cara in Caras)
+            {
+                c = (Cara)Cara.Value;
+                c.Escalar(escala);
+            }
         }
 
-        public void Rotar()
+        public void Rotar(float angulo, Vector3Ser rotacion)
         {
-            throw new NotImplementedException();
+            Cara c;
+            foreach (var Cara in Caras) {
+                c = (Cara)Cara.Value;
+                c.Rotar(angulo, rotacion);
+            }
         }
 
-        public void Trasladar()
+        public void Trasladar(Vector3Ser trasladar)
         {
-            throw new NotImplementedException();
+            Cara c;
+            foreach (var Cara in Caras)
+            {
+                c = (Cara)Cara.Value;
+                c.Trasladar(trasladar);
+            }
         }
     }
 }

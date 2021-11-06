@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CasaOpentTK
@@ -16,31 +15,31 @@ namespace CasaOpentTK
     class Cara : IObjeto
     {
 
-        public Hashtable Vertices { get; set; }
+        public Dictionary<String, Vector3Ser> Vertices { get; set; }
         public Vector3Ser Centro { get; set; }
 
 
         public Cara()
         {
-            Centro = new Vector3Ser(0, 0, 0);
-            Vertices = new Hashtable();
+            this.Centro = new Vector3Ser(0, 0, 0);
+            this.Vertices = new Dictionary<String, Vector3Ser>();
         }
 
-        public Cara(Hashtable vertices) {
-            Centro = new Vector3Ser(0, 0, 0);
-            Vertices = vertices;
+        public Cara(Dictionary<String, Vector3Ser> Vertices) {
+            this.Centro = new Vector3Ser(0, 0, 0);
+            this.Vertices = Vertices;
         }
 
-        public Cara(Vector3Ser centro, Hashtable vertices)
+        public Cara(Vector3Ser Centro, Dictionary<String, Vector3Ser> Vertices)
         {
-            Centro = centro;
-            Vertices = vertices;
+            this.Centro = Centro;
+            this.Vertices = Vertices;
         }
 
-        public Cara(Vector3Ser  c)
+        public Cara(Vector3Ser Centro)
         {
-            Centro = c;
-            Vertices = new Hashtable();
+            this.Centro = Centro;
+            Vertices = new Dictionary<String, Vector3Ser>();
         }
 
 
@@ -50,18 +49,8 @@ namespace CasaOpentTK
             GL.Color3(Color.Black);
             GL.Begin(primitiveType);
             Vector3Ser v;
-            foreach (DictionaryEntry vertice in Vertices) {
-                
-                if (vertice.Value.GetType().ToString() == "Newtonsoft.Json.Linq.JObject")
-                {
-                    var json = vertice.Value.ToString();
-                    v = JsonConvert.DeserializeObject<Vector3Ser>(json);
-
-                }
-                else {
-                    v = (Vector3Ser)vertice.Value;
-                }
-
+            foreach (var vertice in Vertices) { 
+                v = (Vector3Ser)vertice.Value;
                 GL.Vertex3(Centro.X + v.X,Centro.Y+v.Y, Centro.Z+v.Z);
             }
             GL.End();
@@ -73,19 +62,21 @@ namespace CasaOpentTK
             Vertices.Add(key, vertice);
         }
 
-        public void Rotar()
+        public void Rotar(float angulo, Vector3Ser rotacion)
         {
-            throw new NotImplementedException();
+            
+            GL.Rotate(angulo, rotacion.X, rotacion.Y, rotacion.Z);
+            
         }
 
-        public void Trasladar()
+        public void Trasladar(Vector3Ser trasladar)
         {
-            throw new NotImplementedException();
+            GL.Translate(trasladar.X, trasladar.Y, trasladar.Z);
         }
 
-        public void Escalar()
+        public void Escalar(float escala)
         {
-            throw new NotImplementedException();
+            GL.Scale(escala, escala, escala);
         }
     }
 }
