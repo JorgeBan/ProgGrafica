@@ -31,11 +31,11 @@ namespace CasaOpentTK
         }
 
 
-        public Escenario(String archivoObjetos)
+        public Escenario(String NombreArchivo, String archivoObjetos)
         {
             Centro = new Vector3Ser(0, 0, 0);
             Objetos = new Dictionary<String, Objeto>();
-            AgregarObjetoConArchivo(archivoObjetos);
+            AgregarObjetoConArchivo(NombreArchivo, archivoObjetos);
         }
 
         public void Dibujar(){
@@ -52,10 +52,14 @@ namespace CasaOpentTK
         }
 
 
-        public void AgregarObjetoConArchivo(string archivoObjeto) {
+        public Objeto ObtenerObjeto(String NombreObjeto) {
+            return Objetos[NombreObjeto];
+        }
+
+        public void AgregarObjetoConArchivo(String Nombre, String archivoObjeto) {
             string json = File.ReadAllText(archivoObjeto);
             Objeto objeto = JsonConvert.DeserializeObject<Objeto>(json);
-            Objetos.Add(archivoObjeto,objeto);
+            Objetos.Add(Nombre,objeto);
 
         }
 

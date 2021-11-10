@@ -10,28 +10,38 @@ namespace CasaOpentTK
 
         public Vector3Ser Centro { get; set; }
         public Dictionary<String,Cara> Caras { get; set; }
+        public String Nombre { get; set; }
 
-
-        public Objeto(){
+        public Objeto() {
+            this.Nombre = "";
             this.Centro = new Vector3Ser(0, 0, 0);
             this.Caras = new Dictionary<String, Cara>();
         }
 
-        public Objeto(Vector3Ser Centro)
+        public Objeto(String Nombre){
+            this.Nombre = Nombre;
+            this.Centro = new Vector3Ser(0, 0, 0);
+            this.Caras = new Dictionary<String, Cara>();
+        }
+
+        public Objeto(String Nombre,Vector3Ser Centro)
         {
+            this.Nombre = Nombre;
             this.Centro = Centro;
             this.Caras = new Dictionary<String, Cara>();
         }
 
-        public Objeto(Dictionary<String, Cara> Caras)
+        public Objeto(String Nombre, Dictionary<String, Cara> Caras)
         {
+            this.Nombre = Nombre;
             this.Centro = new Vector3Ser(0, 0, 0);
             this.Caras = Caras;
 
         }
 
-        public Objeto(Vector3Ser Centro, Dictionary<String, Cara> Caras)
+        public Objeto(String Nombre, Vector3Ser Centro, Dictionary<String, Cara> Caras)
         {
+            this.Nombre = Nombre;
             this.Centro = Centro;
             this.Caras = Caras;
 
@@ -50,10 +60,9 @@ namespace CasaOpentTK
             Caras.Add(key, cara);
         }
 
-        public void SetCentro(Vector3Ser centro) { this.Centro = centro; }
-
-        public Vector3Ser GetCentro() { return this.Centro; }
-
+        public Cara ObtenerCara(String NombreCara) {
+            return Caras[NombreCara];
+        }
 
         public void Escalar(float escala)
         {

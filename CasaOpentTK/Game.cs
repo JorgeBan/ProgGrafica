@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-
+using System.Drawing;
 
 namespace CasaOpentTK
 {
@@ -18,8 +18,6 @@ namespace CasaOpentTK
     {
 
         private Escenario escenario;
-        private Dictionary<String, Vector3Ser> Vertices;
-        private Dictionary<String, Cara> Caras;
         public Game()
             : base(900, 600, GraphicsMode.Default, "Escenario")
         {
@@ -29,18 +27,19 @@ namespace CasaOpentTK
         {
             OnResize(null);
 
-            
+            String figura1 = "Cubo3D";
+            String figura2 = "CuboPrueba";
             escenario = new Escenario();
-            escenario.AgregarObjetoConArchivo("Cubo.txt");
-            escenario.AgregarObjetoConArchivo("Triangulo.txt");
-
-            
+            escenario.AgregarObjetoConArchivo(figura1, figura1 +".txt");
+            escenario.AgregarObjetoConArchivo(figura2, figura2 + ".txt");
 
 
-            GL.ClearColor(Color4.LightBlue);
+
+
+            GL.ClearColor(Color4.Black);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(-400, 400, -400, 400, -400, 400);
+            GL.Ortho(-200, 200, -200, 200, -200, 200);
 
         }
 
@@ -51,15 +50,13 @@ namespace CasaOpentTK
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
-
-
+            
             rotar += 1.5f;
-            escenario.Rotar(rotar, new Vector3Ser(1, 0, 0));
-            //escenario.Trasladar(new Vector3Ser(rotar,rotar,rotar));
-            //escenario.Escalar(rotar);
-            //GL.Scale(rotar,rotar,rotar);
-            escenario.Dibujar();
 
+            escenario.ObtenerObjeto("Cubo3D").Rotar(rotar, new Vector3Ser(1, 0, 0));
+            escenario.ObtenerObjeto("CuboPrueba").Rotar(rotar, new Vector3Ser(0, 1, 0));
+            escenario.Dibujar();
+                        
  
             SwapBuffers();
             base.OnRenderFrame(e);
@@ -71,9 +68,6 @@ namespace CasaOpentTK
 
             base.OnUpdateFrame(e);
         }
-
-
-
         
     }
 }
