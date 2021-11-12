@@ -93,8 +93,7 @@ namespace CasaOpentTK
 
 
         public void Dibujar() {
-
-
+            
             PrimitiveType primitiveType = PrimitiveType.LineLoop;
             GL.Color3(Color.Red);
             GL.PushMatrix();
@@ -110,9 +109,10 @@ namespace CasaOpentTK
             foreach (var vertice in Vertices) { 
                 v = (Vector3Ser)vertice.Value;
                 GL.Vertex3(Centro.X + v.X,Centro.Y+v.Y, Centro.Z+v.Z);
+                
             }
 
-
+            
             GL.End();
             GL.PopMatrix();
 
@@ -145,6 +145,11 @@ namespace CasaOpentTK
         public void Escalar(float escala)
         {
             this.FactorEscalacion = escala;
+        }
+
+        public void ElminarParte(string key)
+        {
+            this.Vertices.Remove(key);
         }
     }
 }

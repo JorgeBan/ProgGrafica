@@ -12,5 +12,6 @@ namespace CasaOpentTK
         void Rotar(float angulo, Vector3Ser rotacion);
         void Trasladar(Vector3Ser trasladar);
         void Escalar(float escala);
+        void ElminarParte(String key);
     }
 }

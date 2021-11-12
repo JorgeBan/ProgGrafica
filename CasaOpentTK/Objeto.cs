@@ -92,5 +92,14 @@ namespace CasaOpentTK
                 c.Trasladar(trasladar);
             }
         }
+
+        public Dictionary<String, Cara> ObtenerCaras() {
+            return this.Caras;
+        }
+
+        public void ElminarParte(string key)
+        {
+            this.Caras.Remove(key);
+        }
     }
 }

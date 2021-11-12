@@ -32,7 +32,7 @@ namespace CasaOpentTK
             escenario = new Escenario();
             escenario.AgregarObjetoConArchivo(figura1, figura1 +".txt");
             escenario.AgregarObjetoConArchivo(figura2, figura2 + ".txt");
-
+            
 
 
 
@@ -51,10 +51,11 @@ namespace CasaOpentTK
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
             
-            rotar += 1.5f;
+            rotar += 1.0f;
 
-            escenario.ObtenerObjeto("Cubo3D").Rotar(rotar, new Vector3Ser(1, 0, 0));
-            escenario.ObtenerObjeto("CuboPrueba").Rotar(rotar, new Vector3Ser(0, 1, 0));
+            ///escenario.ObtenerObjeto("Cubo3D").Rotar(rotar, new Vector3Ser(1, 0, 0));
+            //escenario.ObtenerObjeto("3DCubo").ObtenerCara("CaraDerecha").Rotar(rotar, new Vector3Ser(0, 1, 0));
+            escenario.Rotar(rotar, new Vector3Ser(1,1,1));
             escenario.Dibujar();
                         
  
@@ -68,6 +69,6 @@ namespace CasaOpentTK
 
             base.OnUpdateFrame(e);
         }
-        
+
     }
 }

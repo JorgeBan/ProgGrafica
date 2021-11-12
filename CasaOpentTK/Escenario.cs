@@ -11,23 +11,27 @@ namespace CasaOpentTK
 
         private Dictionary<String, Objeto> Objetos;
         private Vector3Ser Centro;
+        private String Nombre;
 
         public Escenario()
         {
             this.Centro = new Vector3Ser(0, 0, 0);
             this.Objetos = new Dictionary<String, Objeto>();
+            this.Nombre = "Escenario1";
         }
 
         public Escenario(Dictionary<String, Objeto> Objetos)
         {
             this.Centro = new Vector3Ser(0,0,0);
             this.Objetos = Objetos;
+            this.Nombre = "Escenario1";
         }
 
         public Escenario(Vector3Ser Centro, Dictionary<String, Objeto> Objetos)
         {
             this.Centro = Centro;
             this.Objetos = Objetos;
+            this.Nombre = "Escenario1";
         }
 
 
@@ -35,6 +39,7 @@ namespace CasaOpentTK
         {
             Centro = new Vector3Ser(0, 0, 0);
             Objetos = new Dictionary<String, Objeto>();
+            this.Nombre = "Escenario1";
             AgregarObjetoConArchivo(NombreArchivo, archivoObjetos);
         }
 
@@ -96,6 +101,23 @@ namespace CasaOpentTK
                 obj = (Objeto)Objeto.Value;
                 obj.Trasladar(trasladar);
             }
+        }
+
+        public String ObtnerNombre() {
+            return this.Nombre;
+        }
+
+        public Dictionary<String, Objeto> ObtenerObjetos() {
+            return this.Objetos;
+        }
+
+        public void EliminarObjeto(String key) {
+            this.Objetos.Remove(key);
+        }
+
+        public void ElminarParte(string key)
+        {
+            this.Objetos.Remove(key);
         }
     }
 }
